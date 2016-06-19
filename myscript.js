@@ -124,6 +124,15 @@ function LEI() {
 				height: 16px;\
 				background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -300px 0px no-repeat\
 			}\
+			.LEICloseBtn {\
+				width: 16px;\
+				height: 16px;\
+				background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -680px 0px no-repeat\
+			}\
+			.LEIMiniWrapper{\
+				float:right;\
+				margin:0px 4px 0px 4px;\
+			}\
 			.LEIMaxBtn {\
 				width: 16px;\
 				height: 16px;\
@@ -308,7 +317,7 @@ function LEI() {
 			    vertical-align: middle;\
 			}\
 			\
-			#LEIStatusCenter, #LEIStatusProgress, #LEIStatusTimeOnPage, #LEIMsgStatusLogPlayerStatus {\
+			#LEIStatusCenter, #LEIStatusProgress, #LEIMsgStatusLogPlayerStatus {\
 			    background: #323336;\
 			    color: #fff !important;\
 			    font-family: Arial;\
@@ -318,6 +327,12 @@ function LEI() {
 			    vertical-align: middle;\
 			}\
 			\
+			.LEIStatusBar{\
+				color:#fff !important;\
+			    font-family: Arial;\
+			    font-size: 12px;\
+			    text-align:left;\
+			}\
 			#LEIMsgStatusLogPlayerStatus {\
 			    width: 70px;\
 			    text-align: center;\
@@ -328,8 +343,6 @@ function LEI() {
 			    vertical-align: middle;\
 			}\
 			#LEIStatusTimeOnPage {\
-			    width: 75px;\
-			    text-align: center;\
 			    vertical-align: middle;\
 			}\
 			\
@@ -626,9 +639,14 @@ function LEI() {
                                                         <a href='javascript:;' alt='Visitor Logoff' title='Visitor Logoff'>\
                                                             <img id='LEIImgLogoff' border='0' src='"+this.baseURL+"images/logout.gif'></img>\
                                                         </a> -->\
-                                                        <div style='float:right'><a href='javascript:;' alt='Minimize / Maximize' title='Minimize / Maximize'>\
-                                                            <div id='LEIImgMinimize' class='LEIMiniBtn'></div>\
-                                                        </a></div>\
+                                                        <div class='LEIMiniWrapper'>\
+                                                        	<a href='javascript:;' alt='Close' title='Close'>\
+                                                            <div id='LEIImgClose' class='LEICloseBtn'></div></a>\
+                                                        </div>\
+                                                        <div class='LEIMiniWrapper'>\
+                                                        	<a href='javascript:;' alt='Minimize / Maximize' title='Minimize / Maximize'>\
+                                                            <div id='LEIImgMinimize' class='LEIMiniBtn'></div></a>\
+                                                        </div>\
                                                     </td>\
                                                     <!-- <td id='LEITopRight'></td> -->\
                                                 </tr>\
@@ -641,9 +659,9 @@ function LEI() {
                                         <table id='emtDebugMainMonitorTable' width='100%' cellspacing='0' cellpadding='0' border='0'>\
                                             <tbody>\
                                                 <tr class='LEImainTableTopRow'>\
-                                                    <td colspan='3' class='LEILable'>Account : </td>\
+                                                	<td></td>\
+                                                    <td colspan='2' class='LEILable'>Account : </td>\
                                                     <td colspan='2' class='LEImainTableTopRowAcc LEIEMTDivider' id='LEIEMTsiteSrv'>"+this.noValueStr+"</td>\
-                                                    <td colspan='2' class = 'LEILable'>Domain : </td>\
                                                     <td colspan='4' id='LEIDomain' class='LEIEMTDivider'>"+this.noValueStr+"</td>\
                                                     <td colspan='2' class = 'LEILable'>Section : </td>\
                                                     <td colspan='2' id='LEIEMTSection' class='LEIEMTDivider'>"+this.noValueStr+"</td>\
@@ -655,24 +673,17 @@ function LEI() {
                                                         </a>\
                                                     </td>\
                                                 </tr>\
+                                                <tr class='LEImainTableNumberRow'><td style='height:5px'></td></tr>\
                                                 <tr class='LEImainTableNumberRow'>\
                                                  	<td></td>\
-                                                    <!-- <td id='LEISRVver'>"+this.noValueStr+"</td> -->\
                                                     <td id='LEIENGcnt' colspan='2'>"+this.noValueStr+"</td>\
                                                     <td id='LEIEMBcnt' colspan='2'>"+this.noValueStr+"</td>\
-                                                    <!-- <td id='LEIDBcnt'>"+this.noValueStr+"</td>\
-                                                    <td id='LEISBcnt'>"+this.noValueStr+"</td>\
-                                                    <td id='LEIINVcnt'>"+this.noValueStr+"</td> -->\
+                                                    <td id='LEIStatusTimeOnPage' colspan='2'></td>\
                                                     <td id='LEIPOSTcnt'>"+this.noValueStr+"</td>\
                                                     <td id='LEIGETcnt'>"+this.noValueStr+"</td>\
                                                     <td id='LEIERRcnt'>"+this.noValueStr+"</td>\
                                                     <td id='LEIWARNcnt'>"+this.noValueStr+"</td>\
                                                     <td class='emtDebugOK' id='LEIOKcnt'>"+this.noValueStr+"</td>\
-                                                    <!-- <td id='LEIEMcntLPChat'>" + this.noValueStr + "</td>\
-                                                    <td id='LEISBcntLPChat'>" + this.noValueStr + "</td>\
-                                                    <td id='LEIINVcntLPChat'>" + this.noValueStr + "</td> -->\
-                                                    <td id='LEILPTAGver'>"+this.noValueStr+"</td>\
-                                                    <td id='LEITAGver'>"+this.noValueStr+"</td>\
                                                     <td>\
                                                         <a id='LEIToggleTools' href='javascript:;'>\
                                                             <div id='LEIImgShowTools'></div>\
@@ -681,22 +692,14 @@ function LEI() {
                                                 </tr>\
                                                	<tr class='LEImainTableLabelRow'>\
                                                		<td></td>\
-                                                    <!-- <td class='LEImainTableTopRow'>SRV</td> -->\
                                                     <td colspan='2' class=''>Disp ENG.</td>\
                                                     <td colspan='2' class=''>Emb ENG.</td>\
-                                                    <!-- <td>#DB</td>\
-                                                    <td>#SB</td>\
-                                                    <td>#INV</td> -->\
+                                                    <td colspan='2' class=''>Time on page</td>\
                                                     <td>POST</td>\
                                                     <td>GET</td>\
                                                     <td>ERR</td>\
                                                     <td>WARN</td>\
                                                     <td>OK</td>\
-                                                    <!-- <td>#EB</td>\
-                                                    <td>#SB</td>\
-                                                    <td>#INV</td> -->\
-                                                    <td class=''>ver.</td>\
-                                                    <td class=''>tagver.</td>\
                                                 </tr>\
                                             </tbody>\
                                         </table>\
@@ -734,9 +737,19 @@ function LEI() {
                                     <td>\
                                         <table id='LEIMainStatusTable' height='20px' width='100%' cellspacing='0' cellpadding='0' border='0'>\
                                             <tbody>\
-                                                <tr>\
-                                                    <td id='LEIStatusLeft'></td>\
-                                                    <td id='LEIStatusCenter'>Status</td>\
+                                                <tr class='LEIStatusBar'>\
+                                                    <td></td>\
+                                                    <td >Tag Ver.</td>\
+                                                    <td id='LEILPTAGver'>"+this.noValueStr+"</td>\
+                                                    <td >/</td>\
+                                                    <td id='LEITAGver'>"+this.noValueStr+"</td>\
+                                                    <td></td>\
+                                                    <td></td>\
+                                                    <td></td>\
+                                                    <td></td>\
+                                                    <td></td>\
+                                                    <td></td>\
+                                                    <td></td>\
                                                     <td class='LEIStatusDivider'></td>\
                                                     <td id='LEIStatusImageTD'><div id='LEIStatusImage'>OK</div></td>\
                                                     <td class='LEIStatusDivider'></td>\
@@ -955,6 +968,9 @@ function LEI() {
 
         elem = this.GetObj('LEIImgMinimize');
         elem.onclick = function () {that.minimizeAll();};
+
+        elem = this.GetObj('LEIImgClose');
+        elem.onclick = function () {that.closeWindow();};
 
         // elem = this.GetObj('LEIToggleLog');
         // elem.onclick = function () {that.toggleLog();};
@@ -2338,6 +2354,12 @@ function LEI() {
         elem.onclick = function () {that.maximizeAll();};
 
         return false;
+    };
+
+    this.closeWindow = function () {
+    	var parentNd = document.body;
+    	var childNd = document.getElementById('LEImainDiv');
+    	parentNd.removeChild(childNd);
     };
 
     this.showTR = function (id) {
