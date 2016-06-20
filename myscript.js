@@ -1,14 +1,14 @@
 function LEI() {
-	this.ver = '1.0';
-    this.specialServer = 'efimd';
+	this.ver = 'beta';
+    // this.specialServer = 'efimd';
 
-    //this.baseURL = 'http://lpdevnew/training/LEI/';
-    if (typeof(lpMTagConfig)!='undefined' && lpMTagConfig.lpServer == this.specialServer) {
-        this.baseURL = 'http://'+ this.specialServer +'/emtdebug/';
-    }
-    else {
-        this.baseURL = 'http://lpdevnew/training/emtdebuglib/';
-    }
+    // //this.baseURL = 'http://lpdevnew/training/LEI/';
+    // if (typeof(lpMTagConfig)!='undefined' && lpMTagConfig.lpServer == this.specialServer) {
+    //     this.baseURL = 'http://'+ this.specialServer +'/emtdebug/';
+    // }
+    // else {
+    //     this.baseURL = 'http://lpdevnew/training/emtdebuglib/';
+    // }
     
     // -- Change to use internal CSS
     // this.cssUrl = this.baseURL + 'LEI.css';
@@ -62,6 +62,7 @@ function LEI() {
 			    width: 90px;\
 			    padding: 0px;\
 			    margin: 0px;\
+			    vertical-align:middle;\
 			}\
 			\
 			#LEIMinimize a {\
@@ -157,6 +158,7 @@ function LEI() {
 			    font-family: Arial;\
 			    font-size: 12px;\
 			\
+				background-color:#515254 !important;\
 			    padding: 1px;\
 			    border-collapse: collapse !important;\
 			    border-spacing: 2px !important;\
@@ -171,13 +173,14 @@ function LEI() {
 			    font-size: 10px;\
 			\
 			    padding: 1px;\
-			    //border-left: 1px solid #767678;\
+			    background-color: #515254;\
 			    color: #dcdcdc !important;\
 			\
 			    vertical-align: middle;\
 			}\
 			\
 			.LEImainTableNumberRow {\
+				background-color:#515254 !important;\
 			    text-align: left;\
 			    font-family: Arial;\
 			    font-size: 12px;\
@@ -326,11 +329,15 @@ function LEI() {
 			    white-space: nowrap;\
 			    vertical-align: middle;\
 			}\
+			#LEIMainTable tbody tr{\
+				background-color:#323336;\
+			}\
 			\
 			.LEIStatusBar{\
+				background-color:#323336;\
 				color:#fff !important;\
 			    font-family: Arial;\
-			    font-size: 12px;\
+			    font-size: 10px;\
 			    text-align:left;\
 			}\
 			#LEIMsgStatusLogPlayerStatus {\
@@ -512,7 +519,7 @@ function LEI() {
 
     this.debugCookieName = 'LP_MTAG_DEBUG_MODE';
 
-    this.chkSiteSrv = '';
+    this.chksiteId = '';
 
     this.showTimeinLog = false;
     this.showLogFilter = false;
@@ -661,7 +668,7 @@ function LEI() {
                                                 <tr class='LEImainTableTopRow'>\
                                                 	<td></td>\
                                                     <td colspan='2' class='LEILable'>Account : </td>\
-                                                    <td colspan='2' class='LEImainTableTopRowAcc LEIEMTDivider' id='LEIEMTsiteSrv'>"+this.noValueStr+"</td>\
+                                                    <td colspan='2' class='LEImainTableTopRowAcc LEIEMTDivider' id='LEIEMTsiteId'>"+this.noValueStr+"</td>\
                                                     <td colspan='4' id='LEIDomain' class='LEIEMTDivider'>"+this.noValueStr+"</td>\
                                                     <td colspan='2' class = 'LEILable'>Section : </td>\
                                                     <td colspan='2' id='LEIEMTSection' class='LEIEMTDivider'>"+this.noValueStr+"</td>\
@@ -692,15 +699,16 @@ function LEI() {
                                                 </tr>\
                                                	<tr class='LEImainTableLabelRow'>\
                                                		<td></td>\
-                                                    <td colspan='2' class=''>Disp ENG.</td>\
-                                                    <td colspan='2' class=''>Emb ENG.</td>\
-                                                    <td colspan='2' class=''>Time on page</td>\
+                                                    <td colspan='2'>Disp ENG.</td>\
+                                                    <td colspan='2'>Emb ENG.</td>\
+                                                    <td colspan='2'>Time on page</td>\
                                                     <td>POST</td>\
                                                     <td>GET</td>\
                                                     <td>ERR</td>\
                                                     <td>WARN</td>\
                                                     <td>OK</td>\
                                                 </tr>\
+                                                <tr class='LEImainTableNumberRow'><td style='height:5px'></td></tr>\
                                             </tbody>\
                                         </table>\
                                     </td>\
@@ -737,14 +745,14 @@ function LEI() {
                                     <td>\
                                         <table id='LEIMainStatusTable' height='20px' width='100%' cellspacing='0' cellpadding='0' border='0'>\
                                             <tbody>\
-                                                <tr class='LEIStatusBar'>\
+                                                <tr  class='LEIStatusBar'>\
                                                     <td></td>\
-                                                    <td >Tag Ver.</td>\
+                                                    <td >Tag Ver. :</td>\
                                                     <td id='LEILPTAGver'>"+this.noValueStr+"</td>\
                                                     <td >/</td>\
                                                     <td id='LEITAGver'>"+this.noValueStr+"</td>\
-                                                    <td></td>\
-                                                    <td></td>\
+                                                    <td >Tag Load Time:</td>\
+                                                    <td id='LEILoadTime'>"+this.noValueStr+"</td>\
                                                     <td></td>\
                                                     <td></td>\
                                                     <td></td>\
@@ -1405,14 +1413,14 @@ function LEI() {
             this.toggleLog();
         }
 
-        var html = '<b>EMT Debug and Tools Library ver: '+this.ver+'</b><br /><br />';
-        html += '<b>Created By</b>: Efim Dimenstein (2008)<br />';
+        var html = '<b>LiveEngage Inspect Tool ver: '+this.ver+'</b><br /><br />';
+        html += '<b>Created By</b>: Stoney Shou<br />';
         html += '<b>Company</b>: Liveperson<br /><br />';
         html += '<b>Disclamer</b>: This is work in progress and should be treated as such.<br />';
         html += ' No guarantees are given on stability of this tool. Use at your own risk.<br /><br />';
         html += '<b>However suggestions and bug reports are welcome.<b><br /><br />';
-        html += '<b>Send suggestion <a href="mailto:efim@liveperson.com?subject=EMT Debug Library Suggestion">email</a><b><br /><br />';
-        html += '<b>Send bugreport <a href="mailto:efim@liveperson.com?subject=EMT Debug Library Bug Report">email</a><b><br />';
+        html += '<b>Send suggestion <a href="mailto:sshou@liveperson.com?subject=LE Inspect Tool Suggestion">email</a><b><br /><br />';
+        html += '<b>Send bugreport <a href="mailto:sshou@liveperson.com?subject=LE Inspect Tool Bug Report">email</a><b><br />';
 
         this.showMsgWindow(false, 'About', html,{width: 400, height: this.maxLogWindowMaxHeight});
         return false;
@@ -1535,23 +1543,23 @@ function LEI() {
     };
 
     this.adminAreaLogin = function (doNotOpenMenu) {
-        if (doNotOpenMenu) {
+        // if (doNotOpenMenu) {
 
-        }
-        else {
-            this.toggleTools();
-        }
+        // }
+        // else {
+        //     this.toggleTools();
+        // }
 
-        var server = lpMTagConfig.lpServer;
-        if (server == 'chat.bankofamerica.com') {
-            server = 'sec1.liveperson.net';
-        }
+        // var server = lpMTagConfig.lpServer;
+        // if (server == 'chat.bankofamerica.com') {
+        //     server = 'sec1.liveperson.net';
+        // }
 
-        var url = 'https://'+ server + '/hc/web/public/pub/ma/lp/login.jsp?goto=home.jsp&site='+lpMTagConfig.lpNumber+'&useid=1';
-        if (lpMTagConfig.lpServer == this.specialServer) {
-            url += '&user=efim&pass=1';
-        }
-        window.open(url);
+        // var url = 'https://'+ server + '/hc/web/public/pub/ma/lp/login.jsp?goto=home.jsp&site='+lpMTagConfig.lpNumber+'&useid=1';
+        // if (lpMTagConfig.lpServer == this.specialServer) {
+        //     url += '&user=efim&pass=1';
+        // }
+        // window.open(url);
     };
 
     this.stopStartEMT = function () {
@@ -2017,76 +2025,40 @@ function LEI() {
         }
         elem.innerHTML = this.progressSymbols[this.progressIdx];
 
-        var timenow = new Date();
-        var difDate = new Date();
-        var dif = timenow.getTime() - this.timestart.getTime();
-        difDate.setTime(dif);
-        var minTxt =  (difDate.getUTCMinutes()>0)? (difDate.getUTCMinutes()+'m ') : '';
-        var hourTxt = (difDate.getUTCHours()>0)?(difDate.getHours() + 'h '):'';
-        var secTxt = difDate.getUTCSeconds() + 's';
-        var timeText = hourTxt + minTxt + secTxt;
-        elem = this.GetObj('LEIStatusTimeOnPage');
-        elem.innerHTML = timeText;
 
         // Get info from lpTag
-        // -- Change lpMTag to lpTag 
-        // if (typeof(lpMTagConfig)!='undefined') {
         if (typeof(lpTag)!='undefined') {
-            // var siteSrv = this.noValueStr;
-            // if (typeof(lpMTagConfig.lpNumber)!='undefined') {
-            //     siteSrv = lpMTagConfig.lpNumber;
-            // }
-            var siteSrv = lpTag.site || "Not Found";
-            this.store = lpTag.sdes.inspect().store || {};
-    	// -- Remove getting server info from old monitor tag
-            // if (typeof(lpMTagConfig.lpServer)!='undefined') {
-            //     var srv = lpMTagConfig.lpServer;
-            //     var idx = srv.indexOf('.');
-            //     if (idx!=-1) {
-            //         var tmpsrv = srv.substr(0,idx);
-            //         if (tmpsrv == 'server') {
-            //             var idx1 =srv.substr(idx+1).indexOf('.');
-            //             if (idx1 != -1) {
-            //                 srv = srv.substr(0,idx+idx1+1);
-            //             }
-            //             else {
-            //                 srv = tmpsrv;
-            //             }
-            //         }
-            //         else {
-            //             srv = tmpsrv;
-            //         }
-            //     }
-            //     if (siteSrv==this.noValueStr) {
-            //         siteSrv = '(' + srv + ')';
-            //     }
-            //     else {
-            //         siteSrv += ' (' + srv + ')';
-            //     }
-            //     var chkSiteSrv = siteSrv;
-            //     if (lpMTagConfig.redirectedFromSiteID) {
-            //         siteSrv += '<br><span class="emtDebugRedirectString">Rdr from: '+ lpMTagConfig.redirectedFromSiteID + '</span>';
-            //         chkSiteSrv += 'Rdr from: '+ lpMTagConfig.redirectedFromSiteID;
-            //     }
-            // }
-        // -- 
 
-            elem = this.GetObj('LEIEMTsiteSrv');
-            // -- Remove check site server
-            // if (chkSiteSrv != this.chkSiteSrv) {
-            //     this.chkSiteSrv = chkSiteSrv;
-            updated = true;
-            elem.innerHTML = siteSrv;
-            // }
+        	// Update time on page
+	        var timenow = new Date();
+	        var difDate = new Date();
 
+	        this.timestart = new Date(lpTag._timing.contReady) || this.timestart;
 
-            // var emtVer = this.noValueStr;
-            // if (typeof(lpMTag)!='undefined') {
-            //     emtVer = lpMTag.ver + ' b' + lpMTag.build;
-            // }
-            var domainStr = lpTag.getDomain();
+	        var dif = timenow.getTime() - this.timestart.getTime();
+	        difDate.setTime(dif);
+	        var minTxt =  (difDate.getUTCMinutes()>0)? (difDate.getUTCMinutes()+'m ') : '';
+	        var hourTxt = (difDate.getUTCHours()>0)?(difDate.getUTCHours() + 'h '):'';
+	        var secTxt = difDate.getUTCSeconds() + 's';
+	        var timeText = hourTxt + minTxt + secTxt;
+	        elem = this.GetObj('LEIStatusTimeOnPage');
+	        elem.innerHTML = timeText;
+            
+
+            // Get site ID
+            var siteId = lpTag.site || "Not Found";
+            this.store = (typeof(lpTag.sdes.inspect) === 'function')? lpTag.sdes.inspect().store : {};
+
+            elem = this.GetObj('LEIEMTsiteId');
+            if(elem.innerHTML != siteId){
+	            updated = true;
+	            elem.innerHTML = siteId;
+            }
+
+            // Get server domain 
+            var domainStr = (typeof(lpTag.getDomain)==='function')?lpTag.getDomain() : this.noValueStr;
             elem = this.GetObj('LEIDomain');
-            if (elem.innerHTML != domainStr) {
+            if ((elem.innerHTML != domainStr) && domainStr != 'undefined') {
                 updated = true;
                 elem.innerHTML = domainStr;
             }
@@ -2113,6 +2085,7 @@ function LEI() {
                     elem.className='emtDebugInfo';
 		        }
 			}
+
 			// Get Embedded Engagement count
             var emds = this.store.pagediv;
             if(typeof(emds) != 'undefined')
@@ -2126,6 +2099,17 @@ function LEI() {
 		            elem.onclick = function(){that.dispEMBInfo()};
                     elem.className='emtDebugInfo';
 		        }
+			}
+
+			// Get tag load time
+			elem = this.GetObj('LEILoadTime');
+			var startTime = lpTag._timing.start||0;
+			var readyTime = lpTag._timing.contReady||0;
+			var loadTime = readyTime - startTime;
+			if((elem.innerHTML === this.noValueStr))
+			{
+				updated = true;
+				elem.innerHTML = loadTime + 'ms';
 			}
 
             this.leChatRef = (typeof (lpTagConfig) != "undefined") && (typeof (lpTagConfig.tagPlugins) != "undefined") ? lpTagConfig.tagPlugins : null;
