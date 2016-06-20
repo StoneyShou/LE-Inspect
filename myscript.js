@@ -1,5 +1,5 @@
 function LEI() {
-	this.ver = 'beta';
+	this.ver = '0.1';
     // this.specialServer = 'efimd';
 
     // //this.baseURL = 'http://lpdevnew/training/LEI/';
@@ -25,6 +25,7 @@ function LEI() {
 			#LEIMainTable td{\
 			    padding: 0px 5px 0px 5px;\
 			    margin: 0px;\
+			    vertical-align:middle;\
 			}\
 			\
 			#emtDebugTopLeft {\
@@ -123,7 +124,22 @@ function LEI() {
 			.LEIMiniBtn {\
 				width: 16px;\
 				height: 16px;\
+				background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -500px 0px no-repeat\
+			}\
+			.LEITagStatNotFound {\
+				width: 16px;\
+				height: 16px;\
 				background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -300px 0px no-repeat\
+			}\
+			.LEITagStatOk {\
+				width: 16px;\
+				height: 16px;\
+				background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -260px 0px no-repeat\
+			}\
+			.LEITagStatWarn {\
+				width: 16px;\
+				height: 16px;\
+				background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -260px -40px no-repeat\
 			}\
 			.LEICloseBtn {\
 				width: 16px;\
@@ -137,7 +153,7 @@ function LEI() {
 			.LEIMaxBtn {\
 				width: 16px;\
 				height: 16px;\
-				background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -1560px 0px no-repeat\
+				background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -500px 0px no-repeat\
 			}\
 			.LEImainTableTopRowAcc {\
 				background-color: #FF9801;\
@@ -260,7 +276,7 @@ function LEI() {
 			    text-align:left;\
 			    background-color: #515254;\
 			    border: 0px;\
-			    color: blue;\
+			    color: dcdcdc;\
 			    font-family: verdana, tahoma, arial, sans-serif;\
 			    white-space: nowrap;\
 			    font-size: 12px;\
@@ -363,10 +379,31 @@ function LEI() {
 				width:16px;\
 				height:16px;\
 			}\
-			#LEIImgRefresh{\
-			    background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -620px 0px no-repeat;\
+			#LEIImgLog{\
+			    background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -1040px -60px no-repeat;\
 				width:16px;\
 				height:16px;\
+			}\
+			.LEITimeIcon{\
+			    background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -120px -80px no-repeat;\
+				width:16px;\
+				height:16px;\
+				cursor:pointer;\
+				float:left;\
+				margin:0px 5px 0px 5px;\
+				vertical-align:middle;\
+			}\
+			.LEIFilterIcon{\
+			    background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -1780px -20px no-repeat;\
+				width:16px;\
+				height:16px;\
+				float:left;\
+				cursor:pointer;\
+				margin:0px 5px 0px 5px;\
+			}\
+			.LEILogTitle{\
+				vertical-align:middle;\
+				height:24px;\
 			}\
 			.LEIStatusResize {\
 			    background: transparent url(https://z1-a.le.liveperson.net/src/modules/web-agent/assets/img/16x16-sprite.png) -2160px -19px no-repeat;\
@@ -511,6 +548,7 @@ function LEI() {
 			    font-family: Arial;\
 			    font-size: 12px !important;\
 			    width : 100%;\
+			    color : #fff;\
 			}\
 			#LEIMainLogWindowTable {\
 			    border-left: 1px solid #767678;\
@@ -676,31 +714,32 @@ function LEI() {
                                                     <!-- <td colspan='3'>LECHAT <span id='leChatVer'></span></td> -->\
                                                     <td>\
                                                         <a id='LEIToggleLog' href='javascript:;'>\
-                                                            <div id='LEIImgRefresh'></div>\
+                                                            <div id='LEIImgLog'></div>\
                                                         </a>\
                                                     </td>\
-                                                </tr>\
+                                                     <td>\
+                                                        <a id='LEIToggleTools' href='javascript:;'>\
+                                                            <div id='LEIImgShowTools'></div>\
+                                                        </a>\
+                                                    </td>\                                               </tr>\
                                                 <tr class='LEImainTableNumberRow'><td style='height:5px'></td></tr>\
                                                 <tr class='LEImainTableNumberRow'>\
                                                  	<td></td>\
                                                     <td id='LEIENGcnt' colspan='2'>"+this.noValueStr+"</td>\
                                                     <td id='LEIEMBcnt' colspan='2'>"+this.noValueStr+"</td>\
-                                                    <td id='LEIStatusTimeOnPage' colspan='2'></td>\
+                                                    <td id='LEIENGAtt' colspan='2'>"+this.noValueStr+"</td>\
+                                                    <td id='LEIStatusTimeOnPage' colspan='2'>"+this.noValueStr+"</td>\
                                                     <td id='LEIPOSTcnt'>"+this.noValueStr+"</td>\
                                                     <td id='LEIGETcnt'>"+this.noValueStr+"</td>\
                                                     <td id='LEIERRcnt'>"+this.noValueStr+"</td>\
                                                     <td id='LEIWARNcnt'>"+this.noValueStr+"</td>\
                                                     <td class='emtDebugOK' id='LEIOKcnt'>"+this.noValueStr+"</td>\
-                                                    <td>\
-                                                        <a id='LEIToggleTools' href='javascript:;'>\
-                                                            <div id='LEIImgShowTools'></div>\
-                                                        </a>\
-                                                    </td>\
                                                 </tr>\
                                                	<tr class='LEImainTableLabelRow'>\
                                                		<td></td>\
                                                     <td colspan='2'>Disp ENG.</td>\
                                                     <td colspan='2'>Emb ENG.</td>\
+                                                    <td colspan='2'>ENG. Att</td>\
                                                     <td colspan='2'>Time on page</td>\
                                                     <td>POST</td>\
                                                     <td>GET</td>\
@@ -746,8 +785,9 @@ function LEI() {
                                         <table id='LEIMainStatusTable' height='20px' width='100%' cellspacing='0' cellpadding='0' border='0'>\
                                             <tbody>\
                                                 <tr  class='LEIStatusBar'>\
-                                                    <td></td>\
-                                                    <td >Tag Ver. :</td>\
+                                                    <td><div id='LEITagStatIcon' class='LEITagStatNotFound'></div></td>\
+                                                    <td id='LEITagStatText'>Tag not found.</div></td>\
+                                                    <td >Ver :</td>\
                                                     <td id='LEILPTAGver'>"+this.noValueStr+"</td>\
                                                     <td >/</td>\
                                                     <td id='LEITAGver'>"+this.noValueStr+"</td>\
@@ -763,9 +803,7 @@ function LEI() {
                                                     <td class='LEIStatusDivider'></td>\
                                                     <td id='LEIMsgStatusLogPlayerStatus'>Log Active</td>\
                                                     <td class='LEIStatusDivider'></td>\
-                                                    <td id='LEIStatusProgress'></td>\
                                                     <td class='LEIStatusDivider'></td>\
-                                                    <td id='LEIStatusTimeOnPage'></td>\
                                                     <td id='LEIStatusResize' class='LEIStatusResize'></td>\
                                                 </tr>\
                                             </tbody>\
@@ -980,10 +1018,8 @@ function LEI() {
         elem = this.GetObj('LEIImgClose');
         elem.onclick = function () {that.closeWindow();};
 
-        // elem = this.GetObj('LEIToggleLog');
-        // elem.onclick = function () {that.toggleLog();};
         elem = this.GetObj('LEIToggleLog');
-        elem.onclick = function () {that.updateConfig();};
+        elem.onclick = function () {that.toggleLog();};
 
         elem = this.GetObj('LEIToggleTools');
         elem.onclick = function () {that.toggleTools();};
@@ -1112,6 +1148,45 @@ function LEI() {
 
 
         this.showMsgWindow(false, 'Displayed Engagement Info', html,{width: 500, height: 100});
+        return false;
+    };
+    this.dispEngAtt = function () {
+        if (this.toolsShown) {
+            this.toggleTools();
+        }
+
+        if (this.logShown) {
+            this.toggleLog();
+        }
+
+        var that = this;
+
+        var html = '';
+
+        html = '<table>\
+        			<tr class="LEILable">\
+        				<td width="10%">No.</td>\
+        				<td width="30%">Engagement Attributes</td>\
+        				<td># Atts</td>\
+        			</tr>';
+
+        if(this.store)
+        {
+        	var index =0;
+	        for (name in this.store) {
+	            if ((name != 'impDisplay')&&(name != 'pagediv')&&(name!='tabActive')) {
+	                html += '<tr>\
+	                			<td>'+ ++index +'</td>';
+	                html += '	<td>'+ name +'</td>';
+	                html += '   <td>'+ this.store[name].length+'</td>\
+	                		 </tr>';
+	            }
+	        }
+	    }
+        html += '</table>';
+
+
+        this.showMsgWindow(false, 'Engagement Attributes', html,{width: 500, height: 100});
         return false;
     };
 
@@ -1414,7 +1489,7 @@ function LEI() {
         }
 
         var html = '<b>LiveEngage Inspect Tool ver: '+this.ver+'</b><br /><br />';
-        html += '<b>Created By</b>: Stoney Shou<br />';
+        html += '<b>Created</b> (Based on the EMTDebugLib Tool) , <b>By</b>: Stoney Shou<br /> ';
         html += '<b>Company</b>: Liveperson<br /><br />';
         html += '<b>Disclamer</b>: This is work in progress and should be treated as such.<br />';
         html += ' No guarantees are given on stability of this tool. Use at your own risk.<br /><br />';
@@ -1833,8 +1908,9 @@ function LEI() {
         }
         else {
             this.logShown = true;
-            var title = "<a id='LEILogToggleTime' href=javascript:;><img src='"+this.baseURL+"images/time.png' border='0'/></a>" +
-                        "<a id='LEILogToggleFilter' href=javascript:;><img src='"+this.baseURL+"images/filter.png'  border='0'/></a>EMT Log";
+            var title = "<div id='LEILogToggleTime' class='LEITimeIcon'></div>" +
+                        "<div id='LEILogToggleFilter' class='LEIFilterIcon'></div>"+
+                        "<div class='LEILogTitle'>EMT Log</div>";
             this.showMsgWindow(true, title);
             var elem = this.GetObj('LEILogToggleTime');
             elem.onclick = function () {that.toggleLogTime(); return false;};
@@ -2018,22 +2094,43 @@ function LEI() {
         var that = this;
         var updated = false;
 
-        var elem = this.GetObj('LEIStatusProgress');
-        this.progressIdx++;
-        if (this.progressIdx == this.progressSymbols.length) {
-            this.progressIdx=0;
-        }
-        elem.innerHTML = this.progressSymbols[this.progressIdx];
+        // var elem = this.GetObj('LEIStatusProgress');
+        // this.progressIdx++;
+        // if (this.progressIdx == this.progressSymbols.length) {
+        //     this.progressIdx=0;
+        // }
+        // elem.innerHTML = this.progressSymbols[this.progressIdx];
 
+        // If core tag detected
+        if(typeof(lpMTag) != 'undefined')
+        {
+        	elem = this.GetObj('LEITagStatIcon');
+        	if(elem.className != 'LEITagStatWarn'){
+        		updated = true;
+        		elem.className = 'LEITagStatWarn';
+        		elem = this.GetObj('LEITagStatText');
+        		elem.innerHTML = 'Old monitor tag';
+        	}
+        }
 
         // Get info from lpTag
         if (typeof(lpTag)!='undefined') {
+
+        	// Update Tag status
+        	elem = this.GetObj('LEITagStatIcon');
+        	if((elem.className != 'LEITagStatOk') && (lpTag.site != undefined)){
+        		elem.className = 'LEITagStatOk';
+        		updated = true;
+        		elem = this.GetObj('LEITagStatText');
+        		elem.innerHTML = 'Tag detected.';
+        	}
+
 
         	// Update time on page
 	        var timenow = new Date();
 	        var difDate = new Date();
 
-	        this.timestart = new Date(lpTag._timing.contReady) || this.timestart;
+	        this.timestart = (lpTag._timing.contReady>0)?new Date(lpTag._timing.contReady) : this.timestart;
 
 	        var dif = timenow.getTime() - this.timestart.getTime();
 	        difDate.setTime(dif);
@@ -2055,6 +2152,18 @@ function LEI() {
 	            elem.innerHTML = siteId;
             }
 
+            // Get Engagement attributes number
+            var ENGAttCnt = 0;
+            for(name in this.store){
+            	if((name != 'impDisplay')&&(name != 'pagediv')&&(name!='tabActive'))
+            		ENGAttCnt ++;
+            }
+            if(ENGAttCnt > 0){
+	            elem = this.GetObj('LEIENGAtt');
+	            elem.innerHTML = ENGAttCnt;
+	            elem.style.cursor = 'pointer';
+	            elem.onclick = function () {that.dispEngAtt()};
+			}
             // Get server domain 
             var domainStr = (typeof(lpTag.getDomain)==='function')?lpTag.getDomain() : this.noValueStr;
             elem = this.GetObj('LEIDomain');
@@ -2847,7 +2956,7 @@ function LEI() {
         var textDiv = document.createElement('div');
         textDiv.id = 'mtagTextDiv-'+ this.counters.logLine;
         textDiv.className = styleClass;
-        textDiv.innerHTML = (this.showTimeinLog?(logLine.time + ''):'') + logLine.msg;
+        textDiv.innerHTML = (this.showTimeinLog?(logLine.time + ' '):' ') + logLine.msg;
         if (divE.firstChild != null) {
             divE.insertBefore(textDiv,divE.firstChild);
         }
