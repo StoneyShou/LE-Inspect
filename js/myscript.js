@@ -16,6 +16,17 @@ function LEI() {
 		    background-color: #323336;\
 		    padding: 0px;\
 		    margin: 0px;\
+		    border:none;\
+			}\
+			\
+			#LEImainDiv table{\
+				width:100%;\
+			}\
+			#LEIMainTitleTable{\
+		    background-color: #323336;\
+		    padding: 0px;\
+		    margin: 0px;\
+		    border:none;\
 			}\
 			\
 			#LEIMainTable img{\
@@ -88,6 +99,8 @@ function LEI() {
 			/*  The main monitor window     */\
 			#emtDebugMainMonitorTable {\
 			    background-color: #515254;\
+			    border:none;\
+			    margin:0px;\
 			}\
 			\
 			#LEIImgCloseLog {\
@@ -234,12 +247,16 @@ function LEI() {
 			    font-size: 12px;\
 			    border-top: 1px solid #767678;\
 			    background-color: #323336;\
-			    color: #fff;\
 			}\
 			#LEILogWindow table{\
 				border-collapse:collapse;\
+				border:none;\
 				width: 100%;\
 				text-align:left;\
+			    color: #fff;\
+			}\
+			#LEILogWindow table tr td{\
+			    color: #fff;\
 			}\
 			#LEILogWindow tr:nth-child(2n+1){\
 				background-color: #656568;\
@@ -318,6 +335,11 @@ function LEI() {
 			/*  The Status Bar */\
 			#LEIMainStatusTable {\
 			    vertical-align: middle;\
+			    border:none;\
+			    margin:0px;\
+			}\
+			#LEIMainStatusTable tr td{\
+			    color:#fff;\
 			}\
 			\
 			#LEIStatusLeft {\
@@ -347,6 +369,7 @@ function LEI() {
 			}\
 			#LEIMainTable tbody tr{\
 				background-color:#323336;\
+				border:0px none #323336;\
 			}\
 			\
 			.LEIStatusBar{\
@@ -427,7 +450,7 @@ function LEI() {
 			    left: 350px;\
 			    width: auto;\
 			    text-align:left;\
-			    background-color: #D4D0C8;\
+			    background-color: #323336;\
 			    border: 2px groove #767678;\
 			    font-family: Arial;\
 			    font-size: 12px;\
@@ -550,9 +573,13 @@ function LEI() {
 			    width : 100%;\
 			    color : #fff;\
 			}\
+			#LEIMainLogWindowTable tbody{\
+				border:none;\
+			}\
 			#LEIMainLogWindowTable {\
-			    border-left: 1px solid #767678;\
-			    border-right: 1px solid #767678; \
+			    border: 0px;\
+			    color:#fff; \
+			    margin:0px;\
 			}';
 
     this.debugCookieName = 'LP_MTAG_DEBUG_MODE';
@@ -727,10 +754,9 @@ function LEI() {
                                                  	<td></td>\
                                                     <td id='LEIENGcnt' colspan='2'>"+this.noValueStr+"</td>\
                                                     <td id='LEIEMBcnt' colspan='2'>"+this.noValueStr+"</td>\
+                                                    <td id='LEIClosedcnt' colspan='2'>"+this.noValueStr+"</td>\
                                                     <td id='LEIENGAtt' colspan='2'>"+this.noValueStr+"</td>\
                                                     <td id='LEIStatusTimeOnPage' colspan='2'>"+this.noValueStr+"</td>\
-                                                    <td id='LEIPOSTcnt'>"+this.noValueStr+"</td>\
-                                                    <td id='LEIGETcnt'>"+this.noValueStr+"</td>\
                                                     <td id='LEIERRcnt'>"+this.noValueStr+"</td>\
                                                     <td id='LEIWARNcnt'>"+this.noValueStr+"</td>\
                                                     <td class='emtDebugOK' id='LEIOKcnt'>"+this.noValueStr+"</td>\
@@ -739,10 +765,9 @@ function LEI() {
                                                		<td></td>\
                                                     <td colspan='2'>Disp ENG.</td>\
                                                     <td colspan='2'>Emb ENG.</td>\
+                                                    <td colspan='2'>Closed ENG.</td>\
                                                     <td colspan='2'>ENG. Att</td>\
                                                     <td colspan='2'>Time on page</td>\
-                                                    <td>POST</td>\
-                                                    <td>GET</td>\
                                                     <td>ERR</td>\
                                                     <td>WARN</td>\
                                                     <td>OK</td>\
@@ -1125,10 +1150,10 @@ function LEI() {
         var html = '';
 
         html = '<table>\
-        			<tr class="LEILable">\
-        				<td width="10%">No.</td>\
-        				<td width="20%">Campaign ID</td>\
-        				<td>Engagement ID</td>\
+        			<tr>\
+        				<td class="LEILable" width="10%">No.</td>\
+        				<td class="LEILable" width="20%">Campaign ID</td>\
+        				<td class="LEILable">Engagement ID</td>\
         			</tr>';
 
         if(this.store.impDisplay.length > 0)
@@ -1150,6 +1175,47 @@ function LEI() {
         this.showMsgWindow(false, 'Displayed Engagement Info', html,{width: 500, height: 100});
         return false;
     };
+
+    this.closedEngInfo = function () {
+        if (this.toolsShown) {
+            this.toggleTools();
+        }
+
+        if (this.logShown) {
+            this.toggleLog();
+        }
+
+        var that = this;
+
+        var html = '';
+
+        html = '<table>\
+        			<tr>\
+        				<td class="LEILable" width="10%">No.</td>\
+        				<td class="LEILable" width="20%">Campaign ID</td>\
+        				<td class="LEILable">Engagement ID</td>\
+        			</tr>';
+
+        if(this.store.impClose.length > 0)
+        {
+        	var engArr = this.store.impClose;
+	        for (var i = 0; i < engArr.length; i++) {
+	            if (typeof(engArr[i]) == 'object') {
+	                html += '<tr>\
+	                			<td>'+ (i+1) +'</td>';
+	                html += '	<td>'+ engArr[i].campaign +'</td>';
+	                html += '   <td>'+ engArr[i].engId+'</td>\
+	                		 </tr>';
+	            }
+	        }
+	    }
+        html += '</table>';
+
+
+        this.showMsgWindow(false, 'Displayed Engagement Info', html,{width: 500, height: 100});
+        return false;
+    };
+
     this.dispEngAtt = function () {
         if (this.toolsShown) {
             this.toggleTools();
@@ -1164,17 +1230,17 @@ function LEI() {
         var html = '';
 
         html = '<table>\
-        			<tr class="LEILable">\
-        				<td width="10%">No.</td>\
-        				<td width="30%">Engagement Attributes</td>\
-        				<td># Atts</td>\
+        			<tr>\
+        				<td class="LEILable" width="10%">No.</td>\
+        				<td class="LEILable" width="30%">Engagement Attributes</td>\
+        				<td class="LEILable"># Atts</td>\
         			</tr>';
 
         if(this.store)
         {
         	var index =0;
 	        for (name in this.store) {
-	            if ((name != 'impDisplay')&&(name != 'pagediv')&&(name!='tabActive')) {
+	            if ((name != 'impDisplay')&&(name != 'impClose')&&(name != 'pagediv')&&(name!='tabActive')) {
 	                html += '<tr>\
 	                			<td>'+ ++index +'</td>';
 	                html += '	<td>'+ name +'</td>';
@@ -1204,10 +1270,10 @@ function LEI() {
         var html = '';
 
         html = '<table>\
-        			<tr class="LEILable">\
-        				<td width="10%">No.</td>\
-        				<td width="20%">Div ID</td>\
-        				<td></td>\
+        			<tr>\
+        				<td class="LEILable" width="10%">No.</td>\
+        				<td class="LEILable" width="20%">Div ID</td>\
+        				<td class="LEILable"></td>\
         			</tr>';
 
         if(this.store.pagediv.length > 0)
@@ -2155,7 +2221,7 @@ function LEI() {
             // Get Engagement attributes number
             var ENGAttCnt = 0;
             for(name in this.store){
-            	if((name != 'impDisplay')&&(name != 'pagediv')&&(name!='tabActive'))
+            	if((name != 'impDisplay')&&(name != 'impClose')&&(name != 'pagediv')&&(name!='tabActive'))
             		ENGAttCnt ++;
             }
             if(ENGAttCnt > 0){
@@ -2210,11 +2276,27 @@ function LEI() {
 		        }
 			}
 
+			// Get closed engagement count
+			var closEngs = this.store.impClose;
+			if(typeof(closEngs)!='undefined')
+			{
+            	var engCnt = closEngs.length;
+	            elem = this.GetObj('LEIClosedcnt');
+            	if(elem.innerHTML != engCnt)
+		        {    
+		            updated = true;
+		            elem.innerHTML = engCnt;
+		            elem.onclick = function(){that.closedEngInfo()};
+                    elem.className='emtDebugInfo';
+		        }
+			}
+
 			// Get tag load time
 			elem = this.GetObj('LEILoadTime');
 			var startTime = lpTag._timing.start||0;
 			var readyTime = lpTag._timing.contReady||0;
-			var loadTime = readyTime - startTime;
+
+			var loadTime = (readyTime - startTime)>0?(readyTime - startTime):'N/A';
 			if((elem.innerHTML === this.noValueStr))
 			{
 				updated = true;
@@ -2355,21 +2437,21 @@ function LEI() {
                 elem.onclick = function () {that.maximizeAll(); that.logShowErrWarn('error');};
             }
 
-            if (this.counters.connGET > 0) {
-                elem = this.GetObj('LEIGETcnt');
-                if (elem.innerHTML != this.counters.connGET) {
-                    updated = true;
-                    elem.innerHTML = this.counters.connGET;
-                }
-            }
+            // if (this.counters.connGET > 0) {
+            //     elem = this.GetObj('LEIGETcnt');
+            //     if (elem.innerHTML != this.counters.connGET) {
+            //         updated = true;
+            //         elem.innerHTML = this.counters.connGET;
+            //     }
+            // }
 
-            if (this.counters.connPOST > 0) {
-                elem = this.GetObj('LEIPOSTcnt');
-                if (elem.innerHTML != this.counters.connPOST) {
-                    updated = true;
-                    elem.innerHTML = this.counters.connPOST;
-                }
-            }
+            // if (this.counters.connPOST > 0) {
+            //     elem = this.GetObj('LEIPOSTcnt');
+            //     if (elem.innerHTML != this.counters.connPOST) {
+            //         updated = true;
+            //         elem.innerHTML = this.counters.connPOST;
+            //     }
+            // }
 
             // elem = this.GetObj('leChatVer');
             // if (elem.innerHTML != this.leChatProps.ver) {
